@@ -12,7 +12,7 @@ class PotatoCategories extends StatelessWidget {
         horizontal: 20,
         vertical: 5,
       ),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       height: 80,
       // decoration: BoxDecoration(
       //   color: Colors.grey[300],
@@ -20,24 +20,17 @@ class PotatoCategories extends StatelessWidget {
       // ),
       child: Obx(
         () => Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(5, (index) {
-            var tFlex = 2;
             var isActive = false;
-            if (index == _controller.curIndex.value) {
-              tFlex = 3;
-              isActive = true;
-            } else {
-              tFlex = 2;
-              isActive = false;
-            }
-            return Expanded(
-              flex: tFlex,
-              child: GestureDetector(
-                child: CategoryItem(isActive),
-                onTap: () {
-                  _controller.setIndex(index);
-                },
-              ),
+            index == _controller.curIndex.value
+                ? isActive = true
+                : isActive = false;
+            return GestureDetector(
+              child: CategoryItem(isActive),
+              onTap: () {
+                _controller.setIndex(index);
+              },
             );
           }),
         ),
@@ -48,7 +41,8 @@ class PotatoCategories extends StatelessWidget {
   // ignore: non_constant_identifier_names
   Widget CategoryItem(bool isActive) {
     return Container(
-      height: 70,
+      height: 50,
+      width: isActive ? 70 : 50,
       margin: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         color: isActive ? Constants.bgColorActive : Constants.bgColor,
